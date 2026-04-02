@@ -1,1 +1,347 @@
-# 4moty
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>April</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            min-height: 100vh;
+            background: #0a0a0a;
+            font-family: 'Cormorant Garamond', serif;
+            overflow-x: hidden;
+            color: #e0e0e0;
+        }
+        
+        .rain-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        
+        .raindrop {
+            position: absolute;
+            width: 1px;
+            height: 15px;
+            background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.3));
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            to { transform: translateY(100vh); }
+        }
+        
+        .container {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+        }
+        
+        .name-section {
+            text-align: center;
+            margin-bottom: 60px;
+            opacity: 0;
+            animation: fadeIn 2s ease forwards;
+        }
+        
+        .month-indicator {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10px;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            color: #666;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+        
+        .name {
+            font-size: 80px;
+            font-weight: 300;
+            letter-spacing: 20px;
+            color: #fff;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .name::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 1px;
+            background: #c9a961;
+            animation: expandLine 2s ease 1s forwards;
+        }
+        
+        @keyframes expandLine {
+            to { width: 100%; }
+        }
+        
+        .content {
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 1s ease forwards;
+        }
+        
+        .section:nth-child(1) { animation-delay: 0.5s; }
+        .section:nth-child(2) { animation-delay: 1s; }
+        .section:nth-child(3) { animation-delay: 1.5s; }
+        .section:nth-child(4) { animation-delay: 2s; }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .divider {
+            width: 30px;
+            height: 1px;
+            background: #333;
+            margin: 0 auto 30px;
+        }
+        
+        .text {
+            font-size: 18px;
+            line-height: 2;
+            font-weight: 300;
+            text-align: center;
+            color: #aaa;
+            font-style: italic;
+        }
+        
+        .text strong {
+            color: #fff;
+            font-weight: 400;
+            font-style: normal;
+        }
+        
+        .haunting {
+            color: #c9a961;
+            font-size: 24px;
+            letter-spacing: 3px;
+            text-transform: lowercase;
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        .ghost-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.03;
+        }
+        
+        .ghost-text {
+            position: absolute;
+            font-size: 200px;
+            color: #fff;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(2deg); }
+        }
+        
+        .final-section {
+            margin-top: 80px;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 2s ease 3s forwards;
+        }
+        
+        .confession-box {
+            border: 1px solid #333;
+            padding: 40px;
+            position: relative;
+            background: rgba(255,255,255,0.01);
+        }
+        
+        .confession-box::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid #222;
+            pointer-events: none;
+        }
+        
+        .confession-text {
+            font-size: 22px;
+            line-height: 1.8;
+            color: #ddd;
+            font-style: italic;
+        }
+        
+        .highlight {
+            color: #c9a961;
+            font-style: normal;
+            font-weight: 400;
+        }
+        
+        .signature {
+            margin-top: 60px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #555;
+        }
+        
+        @media (max-width: 600px) {
+            .name {
+                font-size: 50px;
+                letter-spacing: 10px;
+            }
+            .text {
+                font-size: 16px;
+            }
+            .confession-text {
+                font-size: 18px;
+            }
+        }
+        
+        .glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(201,169,97,0.1) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 0;
+            animation: pulse 8s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="rain-container" id="rain"></div>
+    <div class="ghost-container" id="ghosts"></div>
+    <div class="glow"></div>
+    
+    <div class="container">
+        <div class="name-section">
+            <div class="month-indicator">the fourth month</div>
+            <h1 class="name">April</h1>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <div class="divider"></div>
+                <p class="text">
+                    I've tried to outrun you. <strong>God knows I've tried.</strong> New faces, new names, new hands to hold—but every time, without fail, my mind drifts back to you. It's not fair to them, and it's exhausting for me.
+                </p>
+            </div>
+            
+            <div class="section">
+                <div class="divider"></div>
+                <p class="text">
+                    We have a past that I can't archive. It lives in my present, stubborn and uninvited. The way you laughed at my terrible jokes. The way you looked at me when you thought I wasn't watching. <strong>The way we were.</strong>
+                </p>
+            </div>
+            
+            <div class="section">
+                <div class="haunting">you haunt me</div>
+                <p class="text">
+                    I don't understand the physics of this. Why does my heart default to you? Why do I find myself comparing—<em>everyone</em> to you? It's been years, April. Years. And still, you're the measure of everything.
+                </p>
+            </div>
+            
+            <div class="section">
+                <div class="divider"></div>
+                <p class="text">
+                    I've analyzed this from every angle. Is it nostalgia? Loneliness? Some twisted attachment to what we never finished? <strong>None of the explanations stick.</strong> The only truth that remains is: I want you. Still. Always.
+                </p>
+            </div>
+            
+            <div class="final-section">
+                <div class="confession-box">
+                    <p class="confession-text">
+                        I don't know why I'm feeling this way. I don't know if you feel the echo of us too. But I know that <span class="highlight">I want you</span>—not a memory of you, not the idea of you, but <span class="highlight">you</span>, in whatever form you're willing to give.
+                    </p>
+                </div>
+                <div class="signature">— someone who never moved on</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const rainContainer = document.getElementById('rain');
+        for (let i = 0; i < 100; i++) {
+            const drop = document.createElement('div');
+            drop.className = 'raindrop';
+            drop.style.left = Math.random() * 100 + '%';
+            drop.style.animationDuration = (0.5 + Math.random() * 0.5) + 's';
+            drop.style.animationDelay = Math.random() * 2 + 's';
+            drop.style.opacity = Math.random() * 0.5;
+            rainContainer.appendChild(drop);
+        }
+        
+        const ghostContainer = document.getElementById('ghosts');
+        const ghostTexts = ['april', 'us', 'then', 'always', 'why', 'you'];
+        for (let i = 0; i < 6; i++) {
+            const ghost = document.createElement('div');
+            ghost.className = 'ghost-text';
+            ghost.textContent = ghostTexts[i];
+            ghost.style.left = (Math.random() * 80 + 10) + '%';
+            ghost.style.top = (Math.random() * 80 + 10) + '%';
+            ghost.style.animationDelay = (i * 2) + 's';
+            ghost.style.animationDuration = (15 + Math.random() * 10) + 's';
+            ghostContainer.appendChild(ghost);
+        }
+        
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.ghost-container');
+            parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+        });
+    </script>
+</body>
+</html>
